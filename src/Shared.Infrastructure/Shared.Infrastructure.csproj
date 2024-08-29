@@ -9,11 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Lightsoft.AspNetCore" Version="0.0.0.1" />
     <PackageReference Include="Lightsoft.AspNetCore.Extensions" Version="0.0.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using ModularMonolith.Contracts.Interfaces;
 using ModularMonolith.Infrastructure.Services;
+using ModularMonolith.Shared.Interfaces;
 
 namespace ModularMonolith.Infrastructure;
 

@@ -1,4 +1,4 @@
-﻿using ModularMonolith.Contracts.Interfaces;
+﻿using ModularMonolith.Shared.Interfaces;
 
 namespace ModularMonolith.Infrastructure.Services;
 
