@@ -22,7 +22,8 @@
         "**/*.filelist",
         "**/*.user",
         "**/*.lock.json",
-        "*.nuspec"
+        "*.nuspec",
+		"README.md"
       ]
     }
   ]

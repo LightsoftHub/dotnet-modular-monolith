@@ -19,9 +19,11 @@
     </packageTypes>
     <tags>Modular Monolith Architecture ddd domain-driven-design modular-monolith-architecture modular monolith architecture minhvu SOLID</tags>
     <icon>icon.png</icon>
+    <readme>README.md</readme>
   </metadata>
   <files>
-    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore;**\sample\**;.\README.md;.\LICENSE;" />
+    <file src="README.md" />
     <file src=".template.config\icon.png" />
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore;**\sample\**;**\.vs\**;" />
   </files>
 </package>

@@ -23,6 +23,11 @@ To create a ASP.NET Core Web API solution:
 dotnet new mm-sln -n YourProjectName
 ```
 
+To create module projects template:
+```bash
+dotnet new mm -n YourModuleName
+```
+
 ## Overview
 
 ### Shared
