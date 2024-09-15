@@ -1,0 +1,46 @@
+﻿@    using Light.Identity
+@    using Microsoft.AspNetCore.Authorization
+@    using ModularMonolith.HttpApi.Client.Identity
+@    using ModularMonolith.Core.Authorization
+@    using ModularMonolith.Auth.Permissions
+
+@page "/users"
+@attribute [MustHavePermission(Permissions.Users.View)]
+
+<PageTitle>Users</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Users</MudText>
+<MudText Typo="Typo.body1" Class="mb-8">This component demonstrates fetching data from the server.</MudText>
+
+@if (users == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+  <MudTable Items="users" Hover="true" SortLabel="Sort By" Elevation="0" AllowUnsorted="false">
+        <RowTemplate>
+            <MudTd DataLabel="User Name">@context.UserName</MudTd>
+            <MudTd DataLabel="Phone">@context.PhoneNumber</MudTd>
+            <MudTd DataLabel="Email">@context.Email</MudTd>
+            <MudTd DataLabel="Status">@context.Status</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    private IEnumerable<UserDto>? users;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var getUsers = await UserHttpService.GetAsync();
+        if (getUsers.Succeeded)
+        {
+            users = getUsers.Data;
+        }
+    }
+}

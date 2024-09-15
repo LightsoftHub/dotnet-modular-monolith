@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using ModularMonolith.Shared.Interfaces;
+using ModularMonolith.Core.Interfaces;
 
 namespace ModularMonolith.Auth.Permissions;
 

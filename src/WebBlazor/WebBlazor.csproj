@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<RootNamespace>ModularMonolith.WebBlazor</RootNamespace>
+	<AssemblyName>ModularMonolith.WebBlazor</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Users.WebComponents\Modules.Users.WebComponents.csproj" />
+    <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+    <ProjectReference Include="..\Shared.WebComponents\Shared.WebComponents.csproj" />
+  </ItemGroup>
+	
+</Project>

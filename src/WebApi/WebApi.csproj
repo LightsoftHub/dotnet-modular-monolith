@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	<RootNamespace>ModularMonolith.WebApi</RootNamespace>
+	<AssemblyName>ModularMonolith.WebApi</AssemblyName>
+	<UserSecretsId>67623390-f1ed-4a30-bb12-b6f038bea1fa</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+	<PackageReference Include="Lightsoft.Serilog" Version="0.0.0.1" />
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	<PackageReference Include="Spectre.Console" Version="0.49.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Users\Modules.Users.csproj" />
+    <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+    <ProjectReference Include="..\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

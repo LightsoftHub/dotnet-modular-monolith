@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ModularMonolith.Modules.Users</RootNamespace>
+    <AssemblyName>ModularMonolith.Modules.Users</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Lightsoft.ActiveDirectory" Version="0.0.0.1" />
+	<PackageReference Include="Lightsoft.Identity.EntityFrameworkCore" Version="0.0.0.1" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.8" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+	<PackageReference Include="Spectre.Console" Version="0.49.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.Users.Contracts\Modules.Users.Contracts.csproj" />
+    <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
+    <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+    <ProjectReference Include="..\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

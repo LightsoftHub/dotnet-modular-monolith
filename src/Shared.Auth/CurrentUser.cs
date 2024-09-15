@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ModularMonolith.Auth;
-using ModularMonolith.Shared.Authorization;
-using ModularMonolith.Shared.Interfaces;
+using ModularMonolith.Core.Authorization;
+using ModularMonolith.Core.Interfaces;
 using System.Security.Claims;
 
 namespace ModularMonolith.Auth;

@@ -1,0 +1,122 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using ModularMonolith.Modules.Users.WebComponents.Services
+@using ModularMonolith.WebBlazor.Components.Layout
+
+@layout LoginLayout
+
+@page "/account/login"
+@attribute [AllowAnonymous]
+
+<PageTitle>Log in</PageTitle>
+
+<div class="d-flex flex-column">
+
+    <FluentCard>
+        <StatusMessage Message="@errorMessage" />
+        <EditForm Model="@Input" method="post" OnValidSubmit=LoginSubmit FormName="login">
+            <DataAnnotationsValidator />
+            <h3>Sign In</h3>
+            <FluentValidationSummary class="text-danger" role="alert" />
+            <FluentStack Orientation="Orientation.Vertical">
+
+                @*
+                    Must use Name="Input.{Prop_name}" for fix InvalidOperationException:
+                        EditForm requires either a Model parameter, or an EditContext parameter, please provide one of these. 
+                *@
+                <FluentTextField Name="Input.Username" @bind-Value="Input.Username" Required="true" Placeholder="username" Size="30">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Person())" Color="@Color.Neutral" Slot="start" />
+                </FluentTextField>
+                <FluentValidationMessage For="() => Input.Username" class="text-danger" />
+
+                <FluentTextField Name="Input.Password" @bind-Value="Input.Password" Required="true" TextFieldType="TextFieldType.Password" Placeholder="password" Size="30">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Key())" Color="@Color.Neutral" Slot="start" />
+                </FluentTextField>
+                <FluentValidationMessage For="() => Input.Password" class="text-danger" />
+
+                <FluentButton Type="ButtonType.Submit" Loading="loading" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
+            </FluentStack>
+        </EditForm>
+    </FluentCard>
+
+</div>
+
+
+@code {
+    private string? errorMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    [Inject]
+    TokenHttpService tokenHttpService { get; set; } = default!;
+
+    private bool loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpContext is not null && HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+    }
+
+    public async Task LoginSubmit()
+    {
+        loading = true;
+
+        var getToken = await tokenHttpService.GetTokenAsync(Input.Username, Input.Password);
+
+        if (getToken.Succeeded)
+        {
+            var accessToken = getToken.Data.AccessToken;
+
+            var claims = JwtExtensions.ReadClaims(accessToken);
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTimeOffset.Now.AddHours(3),
+                    IsPersistent = true
+                };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                claimsPrincipal,
+                authProperties);
+
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else
+        {
+            errorMessage = "Error: Invalid login attempt.";
+        }
+
+        loading = false;
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        public string Username { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+}

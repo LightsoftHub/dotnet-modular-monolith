@@ -1,0 +1,47 @@
+﻿@inherits LayoutComponentBase
+
+<FluentToastProvider />
+<FluentDialogProvider />
+<FluentTooltipProvider />
+<FluentMessageBarProvider />
+<FluentMenuProvider />
+
+<Spinner />
+<FluentLayout>
+    <FluentHeader Class="siteheader" Style="color: black">
+        <FluentIcon Value="@(new Icons.Regular.Size24.Navigation())" OnClick="DrawerToggle" />
+        @Web.AppName
+        <UserMenu />
+        <div class="settings">
+                <ModularMonolith.WebBlazor.Components.Settings.SiteSettings />
+        </div>
+    </FluentHeader>
+    <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
+        <NavMenu Expanded="expanded" />
+        <FluentBodyContent Class="body-content">
+            <div class="content">
+                @Body
+            </div>
+        </FluentBodyContent>
+    </FluentStack>
+    <FluentFooter>
+        <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
+        <FluentSpacer />
+        <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
+    </FluentFooter>
+</FluentLayout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private bool expanded = true;
+
+    public void DrawerToggle()
+    {
+        expanded = !expanded;
+    }
+}

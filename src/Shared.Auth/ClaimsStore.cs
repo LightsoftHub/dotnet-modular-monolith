@@ -19,7 +19,7 @@ public class ClaimsStore
 
     private static List<Claim> GetAllClaims()
     {
-        var fromClass = typeof(Shared.Authorization.Permissions);
+        var fromClass = typeof(Core.Authorization.Permissions);
 
         var claims = new List<Claim>();
 
