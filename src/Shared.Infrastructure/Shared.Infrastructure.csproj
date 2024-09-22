@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Lightsoft.AspNetCore" Version="0.0.0.1" />
-    <PackageReference Include="Lightsoft.AspNetCore.Extensions" Version="0.0.0.2" />
+	<PackageReference Include="Lightsoft.AspNetCore" Version="0.0.0.3" />
+    <PackageReference Include="Lightsoft.AspNetCore.Extensions" Version="0.0.0.8" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ModularMonolith.Auth;
 using ModularMonolith.WebBlazor.Components.Account;
+using ModularMonolith.WebBlazor.Components.Spinner;
 using ModularMonolith.WebBlazor.Infrastructure;
+using ModularMonolith.WebBlazor.Infrastructure.HttpServices;
 using ModularMonolith.WebBlazor.Services;
-using ModularMonolith.WebComponents;
-using ModularMonolith.WebComponents.Components.Spinner;
 
 namespace ModularMonolith.WebBlazor;
 
@@ -19,23 +19,30 @@ public static class ServicesExtension
         services.AddScoped<IdentityRedirectManager>();
 
         services
-            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
             .AddCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/access-denied");
                 //options.Cookie.Name = "Cookie";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(12);
+                options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.LoginPath = new PathString("/account/login");
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
 
+        services.AddAuthorization();
+
         services.AddCascadingAuthenticationState();
 
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddHttpApiClients(configuration);
-        services.AddHttpApiServices(WebAssemblies.Assemblies);
+        services.AddHttpApiServices(Web.Assemblies);
 
         services.AddFluentUIDemoServices();
 

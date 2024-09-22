@@ -9,9 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules.Users.WebComponents\Modules.Users.WebComponents.csproj" />
+	<PackageReference Include="Lightsoft.Identity" Version="0.0.0.1" />
+	<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.10.0" />
+	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
+	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shared.Auth\Shared.Auth.csproj" />
-    <ProjectReference Include="..\Shared.WebComponents\Shared.WebComponents.csproj" />
   </ItemGroup>
 	
 </Project>

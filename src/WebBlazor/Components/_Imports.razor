@@ -9,25 +9,20 @@
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
 
+@inject NavigationManager NavigationManager
+
 @using Microsoft.FluentUI.AspNetCore.Components
+@inject IDialogService DialogService
+@inject IToastService ToastService
 
 @attribute [Authorize]
-
-@using ModularMonolith.WebBlazor
-@using ModularMonolith.WebBlazor.Components
-@using ModularMonolith.WebBlazor.Components.Account
-@using ModularMonolith.WebBlazor.Components.Account.Pages
-@using ModularMonolith.WebBlazor.Components.Shared
-
-@inject NavigationManager NavigationManager
-@inject IdentityRedirectManager RedirectManager
-
-@using ModularMonolith.WebComponents.Constants
 
 @using ModularMonolith.Core.Interfaces
 @inject ICurrentUser CurrentUser
 
-@using ModularMonolith.WebComponents.Components.Spinner
+@using ModularMonolith.WebBlazor
+@using ModularMonolith.WebBlazor.Components
+@using ModularMonolith.WebBlazor.Components.Shared
+@using ModularMonolith.WebBlazor.Components.Pages
+@using ModularMonolith.WebBlazor.Components.Spinner
 @inject SpinnerService SpinnerService
-
-

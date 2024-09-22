@@ -1,4 +1,6 @@
-﻿<FluentStack HorizontalAlignment="@HorizontalAlignment.End" VerticalAlignment="@VerticalAlignment.Center">
+﻿@implements IDisposable
+
+<FluentStack HorizontalAlignment="@HorizontalAlignment.End" VerticalAlignment="@VerticalAlignment.Center">
     <FluentProfileMenu Initials="@CurrentUser.UserName?.First().ToString().ToUpper()">
         <StartTemplate>
             @CurrentUser.FirstName @CurrentUser.LastName
@@ -22,11 +24,13 @@
         <FooterTemplate>
             <FluentStack>
                 <FluentSpacer />
-                <form action="@Web.LogoutPath" method="post">
+                @*
+                <form action="Account/Logout" method="post">
                     <AntiforgeryToken />
                     <input type="hidden" name="ReturnUrl" value="@currentUrl" />
                     <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
                 </form>
+                *@
             </FluentStack>
         </FooterTemplate>
     </FluentProfileMenu>
@@ -38,19 +42,22 @@
     protected override void OnInitialized()
     {
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-
         StateHasChanged();
     }
 
     public void Dispose()
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    public void Logout()
+    {
+        NavigationManager.NavigateTo($"account/logout?returnUrl={currentUrl}", forceLoad: true);
     }
 }

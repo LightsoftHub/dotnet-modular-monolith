@@ -14,9 +14,22 @@ namespace ModularMonolith.WebBlazor.Components.Account
 
             var accountGroup = endpoints.MapGroup("/account");
 
+            accountGroup.MapGet("/logout", async (
+                HttpContext httpContext,
+                string returnUrl) =>
+            {
+                foreach (var cookie in httpContext.Request.Cookies.Keys)
+                {
+                    httpContext.Response.Cookies.Delete(cookie);
+                }
+
+                await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                return TypedResults.LocalRedirect($"~/{returnUrl}");
+            });
+
             accountGroup.MapPost("/logout", async (
                 HttpContext httpContext,
-                ClaimsPrincipal user,
                 [FromForm] string returnUrl) =>
             {
                 foreach (var cookie in httpContext.Request.Cookies.Keys)

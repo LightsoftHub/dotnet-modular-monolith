@@ -4,8 +4,8 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
-@using ModularMonolith.Modules.Users.WebComponents.Services
 @using ModularMonolith.WebBlazor.Components.Layout
+@using ModularMonolith.WebBlazor.Infrastructure.HttpServices.Identity
 
 @layout LoginLayout
 
@@ -47,8 +47,6 @@
 
 
 @code {
-    private string? errorMessage;
-
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
@@ -61,14 +59,20 @@
     [Inject]
     TokenHttpService tokenHttpService { get; set; } = default!;
 
-    private bool loading;
+    [Inject]
+    IdentityRedirectManager redirectManager { get; set; } = default!;
+
+    private string? errorMessage;
+
+    private bool loading = false;
+
 
     protected override async Task OnInitializedAsync()
     {
-        if (HttpContext is not null && HttpMethods.IsGet(HttpContext.Request.Method))
+        await Task.Yield();
+        if (CurrentUser.IsAuthenticated)
         {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            redirectManager.RedirectTo("/");
         }
     }
 
@@ -97,7 +101,7 @@
                 claimsPrincipal,
                 authProperties);
 
-            RedirectManager.RedirectTo(ReturnUrl);
+            redirectManager.RedirectTo(ReturnUrl);
         }
         else
         {

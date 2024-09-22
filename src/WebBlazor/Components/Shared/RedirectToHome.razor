@@ -1,10 +1,6 @@
-﻿@inject IdentityRedirectManager RedirectManager
-
-@code {
-
+﻿@code {
     protected override void OnAfterRender(bool firstRender)
     {
-        RedirectManager.RedirectTo("/~");
+        NavigationManager.NavigateTo("/~");
     }
-
 }

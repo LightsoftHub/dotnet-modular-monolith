@@ -1,5 +1,5 @@
 ﻿using ModularMonolith.Core.Interfaces;
-using ModularMonolith.WebComponents;
+using ModularMonolith.WebBlazor.Infrastructure.HttpServices;
 
 namespace ModularMonolith.WebBlazor.Services;
 

@@ -23,9 +23,9 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
-    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/account/login") is true
+    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/account/login")
         ? null
-        : new InteractiveServerRenderMode(false);
+        : InteractiveServer;
 
     protected override Task OnInitializedAsync()
     {

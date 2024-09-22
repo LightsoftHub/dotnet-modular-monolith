@@ -9,6 +9,11 @@
             <FluentNavLink Href="users" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">User</FluentNavLink>
         </FluentNavMenu>
     </nav>
+    <form action="Account/Logout" method="post">
+        <AntiforgeryToken />
+        <input type="hidden" name="ReturnUrl" value="" />
+        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
+    </form>
 </div>
 
 @code {

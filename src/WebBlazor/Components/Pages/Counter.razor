@@ -18,14 +18,8 @@
         currentCount++;
     }
 
-    bool loading = false;
-
     async Task StartLoadingAsync()
     {
-        loading = true;
-
         await Task.Delay(10000);
-
-        loading = false;
     }
 }
